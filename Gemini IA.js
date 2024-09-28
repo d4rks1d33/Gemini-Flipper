@@ -70,7 +70,7 @@ function stringToInt(str) {
         if (digit >= 0 && digit <= 9) {
             num = num * 10 + digit;
         } else {
-            break;
+            break; 
         }
     }
 
@@ -80,11 +80,11 @@ function stringToInt(str) {
 function splitInput(input, delimiter) {
     let index = input.indexOf(delimiter);
     if (index === -1) {
-        return [input]; 
+        return [input];
     }
     
     let part1 = input.slice(0, index);
-    let part2 = input.slice(index + delimiter.length); 
+    let part2 = input.slice(index + delimiter.length);
     
     return [part1, part2];
 }
@@ -94,7 +94,7 @@ function sendAPIKey() {
     if (storage.exists(apiKeyPath)) {
         let apiKey = storage.read(apiKeyPath);
         let apiKeyString = arraybuf_to_string(apiKey);
-        sendSerialCommand(apiKeyString, -1); 
+        sendSerialCommand(apiKeyString, -1);
     } else {
         dialog.message("Error", "API key not found.");
     }
@@ -117,15 +117,51 @@ function setName() {
 
 function saveAPToFile(ssid, password) {
     let apData = ssid + "//" + password + "\n";
-    storage.write(path, apData);
+
+    let updatedData = "";
+
+    if (storage.exists(path)) {
+        let savedAPData = storage.read(path);
+        let apString = arraybuf_to_string(savedAPData);
+
+        let apLines = apString.split("\n");
+        
+        let ssidExists = false;
+
+        for (let i = 0; i < apLines.length; i++) {
+            let line = trimString(apLines[i]);
+
+            if (line.length === 0) continue;
+
+            let existingAP = splitInput(line, "//")[0];
+
+            if (existingAP === ssid) {
+                ssidExists = true;
+                updatedData += apData;
+            } else {
+                updatedData += line + "\n";
+            }
+        }
+
+        if (!ssidExists) {
+            updatedData += apData;
+        }
+
+        storage.write(path, updatedData);
+    } else {
+        storage.write(path, apData);
+    }
 }
 
 function connectToNewAP() {
     sendSerialCommand("no", -1);
+
     delay(500);
-    let newAP = promptForText("Enter SSID/Password", "");
+
+    let newAP = promptForText("Enter SSID//Password", "");
     if (newAP !== undefined) {
         sendSerialCommand(newAP, 0);
+
         let inputParts = splitInput(newAP, "//");
         if (inputParts.length === 2) {
             saveAPToFile(inputParts[0], inputParts[1]);
@@ -142,18 +178,85 @@ function connectToNewAP() {
 
 function connectToSavedAP() {
     sendSerialCommand("yes", -1);
+    
+    delay(500);
 
     if (storage.exists(path)) {
         let savedAPData = storage.read(path);
         let apString = arraybuf_to_string(savedAPData);
         
-        sendSerialCommand(apString, 0);
-        receiveSerialData(0);
+        let apLines = [];
+        let currentLine = "";
+
+        for (let i = 0; i < apString.length; i++) {
+            let char = apString[i];
+            if (char === '\n') {
+                apLines.push(trimString(currentLine));
+                currentLine = "";
+            } else {
+                currentLine += char;
+            }
+        }
+
+        if (currentLine.length > 0) {
+            apLines.push(trimString(currentLine));
+        }
+
+        let ssids = [];
+        
+        for (let i = 0; i < apLines.length; i++) {
+            let line = apLines[i];
+
+            if (line.length === 0) continue;
+
+            let ssid = splitInput(line, "//")[0];
+            ssids.push(ssid);
+        }
+
+        if (ssids.length === 0) {
+            dialog.message("Error", "No saved AP found.");
+            mainMenu();
+            return;
+        }
+
+        submenu.setHeader("Select a saved AP:");
+        for (let i = 0; i < ssids.length; i++) {
+            submenu.addItem(ssids[i], i);
+        }
+
+        let selectedSSIDIndex = submenu.show();
+        if (selectedSSIDIndex === undefined) {
+            mainMenu();
+            return;
+        }
+
+        let selectedSSID = ssids[selectedSSIDIndex];
+
+        let selectedAPLine = null;
+        for (let i = 0; i < apLines.length; i++) {
+            let line = apLines[i];
+
+            if (line.slice(0, selectedSSID.length) === selectedSSID) {
+                selectedAPLine = line;
+                break;
+            }
+        }
+
+        if (selectedAPLine !== null) {
+            sendSerialCommand(selectedAPLine, 0);
+
+            receiveSerialData(0);
+        } else {
+            dialog.message("Error", "Selected AP not found.");
+            mainMenu();
+        }
+
     } else {
         dialog.message("Error", "No saved AP found. Please connect to a new AP first.");
         mainMenu();
     }
 }
+
 
 function startChatting() {
     let chatMessage = promptForText("Enter message", "");
