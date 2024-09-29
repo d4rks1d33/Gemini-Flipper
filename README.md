@@ -2,7 +2,7 @@
 
 Currently in development stage, here I'm going to upload the .js code that I currently use so that anyone who wants to join and help improve it can make their PRs and also for those C developers who want to help create the native Flipper app and be accessible by everyone from https://lab.flipper.net/apps
 
-# How it is work
+## How it is work
 
 Currently the code takes the api key in plain text stored in:
 
@@ -18,7 +18,7 @@ I added a menu to show stored APs so the user just need to select to one that wa
 
 I added the source code of the new firmware for the esp32 and also the pre-compile binary for ESP-Flasher app (You can find the binary in the relases section)
 
-# How to flash the firmware using ESP-Flasher
+## How to flash the firmware using ESP-Flasher
 
 Go to "Manual flash"
 
@@ -35,7 +35,7 @@ Flash it (you need to reboot the board for start using the firmware)
 ![Captura de pantalla 2024-09-28 213123](https://github.com/user-attachments/assets/031063aa-c4bf-4fbe-baa6-745573cc8411)
 
 
-# TO DO
+## TO DO
 
 --> ~~improve the handling of how the APs are saved, currently it saves them but rewrites the previous one~~ Fixed
 
@@ -43,8 +43,12 @@ Flash it (you need to reboot the board for start using the firmware)
 
 --> ~~load the firmware binary for the esp32 (nothing to do here just load the binary)~~
 
-# Screenshots
+## Screenshots
 
 ![image](https://github.com/user-attachments/assets/3878b4a2-223d-4d23-b395-2d25cf710fed)
 
 ![image](https://github.com/user-attachments/assets/777e2d55-f9fd-4c63-bb47-450b020b80e0)
+
+## Native app
+
+The native app is in development.  Currently it just shows the main menu and then each option shows "Under construction".
