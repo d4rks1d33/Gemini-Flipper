@@ -16,6 +16,23 @@ I added a menu to show stored APs so the user just need to select to one that wa
 
 I added the source code of the new firmware for the esp32 and also the pre-compile binary for ESP-Flasher app (You can find the binary in the relases section)
 
+# How to flash the firmware using ESP-Flasher
+
+Go to "Manual flash"
+
+Place the Bootloader binary into bootloader (0x1000)
+
+Place the partitions binary into Part Table (0x8000)
+
+Place the firmware into firmwareA (0x10000)
+
+Flash it (you need to reboot the board for start using the firmware)
+
+![Captura de pantalla 2024-09-28 213108](https://github.com/user-attachments/assets/c2e8a0a4-3865-452a-831f-d7200ae45084)
+
+![Captura de pantalla 2024-09-28 213123](https://github.com/user-attachments/assets/031063aa-c4bf-4fbe-baa6-745573cc8411)
+
+
 # TO DO
 
 --> ~~improve the handling of how the APs are saved, currently it saves them but rewrites the previous one~~ Fixed
