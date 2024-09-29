@@ -6,7 +6,7 @@ Currently in development stage, here I'm going to upload the .js code that I cur
 
 Currently the code takes the api key in plain text stored in:
 
-"/ext/apps_data/gemini_ia/key.txt"
+"/ext/apps_data/gemini_ia/key.txt" (You can get the Gemini Api Key using this link: https://ai.google.dev/gemini-api/docs/api-key?hl=es-419 You only need a Gmail account)
 
 it reads the .txt file and sends it via serial command to the esp32 as soon as the app is initialized (it would be nice to implement some kind of encryption to the api key but it is important that it is sent in plain text and unencrypted to the esp32 because this is how the firmware can read and implement it)
 
