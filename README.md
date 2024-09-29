@@ -12,7 +12,7 @@ Currently the code takes the api key in plain text stored in:
 
 it reads the .txt file and sends it via serial command to the esp32 as soon as the app is initialized (it would be nice to implement some kind of encryption to the api key but it is important that it is sent in plain text and unencrypted to the esp32 because this is how the firmware can read and implement it)
 
-~~About saved APs: when the user connects to a new AP the information needed to connect again is stored in "/ext/apps_data/gemini_ia/SavedAPs.txt" I need to improve the way it saves the information because it overwrites the other AP you have saved~~ Fixed (Sidenote: To send the SSID and password must be send in 1 single command in this format "<SSID>//<password>" <-- this is how the ESP32 can handle the conection (I tried a lot to manage this in 2 steps but the ESP32 doesn't want to help me lol)
+~~About saved APs: when the user connects to a new AP the information needed to connect again is stored in "/ext/apps_data/gemini_ia/SavedAPs.txt" I need to improve the way it saves the information because it overwrites the other AP you have saved~~ Fixed (Sidenote: To send the SSID and password must be send in 1 single command in this format "SSID//password" <-- this is how the ESP32 can handle the conection (I tried a lot to manage this in 2 steps but the ESP32 doesn't want to help me lol)
 
 I added a menu to show stored APs so the user just need to select to one that wants to connect to
 
