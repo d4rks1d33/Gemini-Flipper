@@ -1,2 +1,5 @@
 ADD_SCENE(gemini, main_menu, MainMenu)
+ADD_SCENE(gemini, receive_serial, ReceiveSerial)
+ADD_SCENE(gemini, set_name, SetName)
+ADD_SCENE(gemini, missing_api_key, MissingApiKey)
 ADD_SCENE(gemini, under_construction, UnderConstruction)
