@@ -37,6 +37,8 @@ Flash it (you need to reboot the board for start using the firmware)
 
 ## TO DO
 
+--> Rewrite the ESP32 firmware (currently work for flashing using ESP-TOOLS only with the ESP32-wroom-32 devkit v1 model <-- for other ESP32 models the firmware works flashing it using arduino IDE) I need to rewrite the firmware to make it work with all the ESP32 models using ESP-TOOLS
+
 --> ~~improve the handling of how the APs are saved, currently it saves them but rewrites the previous one~~ Fixed
 
 --> ~~improve the handling of how the saved APs are sent to the esp32 to avoid re-entering the SSID and password (Improving the previous point this should solve itself)~~ Fixed
@@ -52,3 +54,4 @@ Flash it (you need to reboot the board for start using the firmware)
 ## Native app
 
 The native app is in development.  Currently it just shows the main menu and then each option shows "Under construction".
+
