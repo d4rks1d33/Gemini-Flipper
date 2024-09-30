@@ -37,13 +37,13 @@ Flash it (you need to reboot the board for start using the firmware)
 
 ## TO DO
 
---> Rewrite the ESP32 firmware (currently work for flashing using ESP-TOOLS only with the ESP32-wroom-32 devkit v1 model <-- for other ESP32 models the firmware works flashing it using arduino IDE) I need to rewrite the firmware to make it work with all the ESP32 models using ESP-TOOLS
+- [ ] Rewrite the ESP32 firmware (currently work for flashing using ESP-TOOLS only with the ESP32-wroom-32 devkit v1 model <-- for other ESP32 models the firmware works flashing it using arduino IDE) I need to rewrite the firmware to make it work with all the ESP32 models using ESP-TOOLS
 
---> ~~improve the handling of how the APs are saved, currently it saves them but rewrites the previous one~~ Fixed
+- [x] improve the handling of how the APs are saved, currently it saves them but rewrites the previous one
 
---> ~~improve the handling of how the saved APs are sent to the esp32 to avoid re-entering the SSID and password (Improving the previous point this should solve itself)~~ Fixed
+- [x] improve the handling of how the saved APs are sent to the esp32 to avoid re-entering the SSID and password (Improving the previous point this should solve itself)
 
---> ~~load the firmware binary for the esp32 (nothing to do here just load the binary)~~
+- [x] load the firmware binary for the esp32 (nothing to do here just load the binary)
 
 ## Screenshots
 
@@ -55,3 +55,10 @@ Flash it (you need to reboot the board for start using the firmware)
 
 The native app is in development.  Currently it just shows the main menu and then each option shows "Under construction".
 
+## Contributors
+
+(I guess this needs to be updated on GitHub, I'll leave this comment here just in case until the list of contributors is properly updated. I want everyone who contributes to this repository to have the recognition they deserve for their time and effort helping with this project.)
+
+<a href="https://github.com/d4rks1d33/Gemini-Flipper/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=d4rks1d33/Gemini-Flipper&max=50&columns=4&anon=1" />
+</a>
