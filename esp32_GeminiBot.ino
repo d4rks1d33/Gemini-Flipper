@@ -2,9 +2,6 @@
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
 
-const int redLedPin = 2;
-const int blueLedPin = 5;
-
 String apiKey;
 String endpoint;
 String userName;
@@ -74,12 +71,6 @@ bool loadSavedAP(String &ssid, String &password) {
 void setup() {
   Serial.begin(115200);
   delay(10);
-
-  pinMode(redLedPin, OUTPUT);
-  pinMode(blueLedPin, OUTPUT);
-
-  digitalWrite(redLedPin, HIGH);
-  digitalWrite(blueLedPin, LOW);
 
   loadAPIKey();
 
@@ -186,8 +177,6 @@ void loop() {
 
         String payload = "{\"contents\":[{\"parts\":[{\"text\":\"" + userQuery + "\"}]}]}";
 
-        digitalWrite(blueLedPin, HIGH);
-
         int httpResponseCode = http.POST(payload);
 
         if (httpResponseCode > 0) {
@@ -210,8 +199,6 @@ void loop() {
           Serial.print("HTTP error: ");
           Serial.println(http.errorToString(httpResponseCode).c_str());
         }
-
-        digitalWrite(blueLedPin, LOW);
 
         http.end();
       } else {
