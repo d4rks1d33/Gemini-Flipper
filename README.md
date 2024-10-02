@@ -2,6 +2,8 @@
 
 Currently in development stage, here I'm going to upload the .js code that I currently use so that anyone who wants to join and help improve it can make their PRs and also for those C developers who want to help create the native Flipper app and be accessible by everyone from https://lab.flipper.net/apps
 
+Important: The javascript app now doesn't work with the new firmware, I need to rewrite it to adapt the new changes 
+
 ## How it is work
 
 Currently the code takes the api key in plain text stored in:
@@ -36,6 +38,10 @@ Flash it (you need to reboot the board for start using the firmware)
 
 
 ## TO DO
+
+- [ ] Rewrite javascript app for work with the new firmware
+
+- [ ] Javascript: Change the menu to only leave the option to "connect to a new AP" the "saved APs" option is obsolete, now the list of saved APs is sent in the background to the ESP32 after setting the name so that it detects if any of the networks is available and connects automatically, otherwise it will ask the user to enter the username and password of the AP to which they want to connect and will save the data of this new AP for the future
 
 - [x] Rewrite the ESP32 firmware now should work with all the ESP32 models using ESP-TOOLS
 
