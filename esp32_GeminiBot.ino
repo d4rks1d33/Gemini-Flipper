@@ -68,6 +68,73 @@ bool loadSavedAP(String &ssid, String &password) {
   return true;
 }
 
+bool autoConnectToWiFi(const String &networks) {
+  Serial.println("Attempting to auto-connect to known networks...");
+
+  int n = WiFi.scanNetworks();
+  
+  int startIndex = 0;
+  while (startIndex < networks.length()) {
+    int separatorIndex = networks.indexOf(",", startIndex);
+    if (separatorIndex == -1) separatorIndex = networks.length();
+    
+    String pair = networks.substring(startIndex, separatorIndex);
+    pair.trim();
+
+    int ssidPasswordSeparator = pair.indexOf("//");
+    if (ssidPasswordSeparator == -1) {
+      Serial.println("Invalid format, skipping: " + pair);
+      startIndex = separatorIndex + 1;
+      continue;
+    }
+
+    String ssid = pair.substring(0, ssidPasswordSeparator);
+    String password = pair.substring(ssidPasswordSeparator + 2);
+    ssid.trim();
+    password.trim();
+
+    for (int i = 0; i < n; ++i) {
+      if (ssid == WiFi.SSID(i)) {
+        Serial.print("Found matching SSID: ");
+        Serial.println(ssid);
+        connectToWiFi(ssid.c_str(), password.c_str());
+        if (WiFi.status() == WL_CONNECTED) {
+          Serial.println("Connected successfully to " + ssid);
+          return true;
+        } else {
+          Serial.println("Failed to connect to " + ssid);
+        }
+      }
+    }
+
+    startIndex = separatorIndex + 1;
+  }
+  Serial.println("No matching networks found.");
+  return false;
+}
+
+void manualConnect() {
+  Serial.println("Please enter the SSID of the WiFi network you want to connect to:");
+  while (!Serial.available());
+  String ssid = Serial.readStringUntil('\n');
+  ssid.trim();
+
+  Serial.println("Please enter the password for the WiFi network:");
+  while (!Serial.available());
+  String password = Serial.readStringUntil('\n');
+  password.trim();
+
+  String formattedInput = ssid + "//" + password;
+
+  connectToWiFi(ssid.c_str(), password.c_str());
+
+  if (WiFi.status() == WL_CONNECTED) {
+    saveAP(ssid.c_str(), password.c_str());
+  } else {
+    Serial.println("Failed to connect to " + ssid + ". Manual entry required.");
+  }
+}
+
 void setup() {
   Serial.begin(115200);
   delay(10);
@@ -94,71 +161,12 @@ void setup() {
     Serial.println(")");
   }
 
-  while (true) {
-    Serial.println("Do you want to use a saved Access Point? (yes/no):");
-    while (!Serial.available());
-    String choice = Serial.readStringUntil('\n');
-    choice.trim();
+  while (!Serial.available());
+  String networks = Serial.readStringUntil('\n');
+  networks.trim();
 
-    if (choice.equalsIgnoreCase("yes")) {
-      Serial.println("Please enter the SSID and password in the format 'SSID//password':");
-      
-      while (!Serial.available());
-      String input = Serial.readStringUntil('\n');
-      input.trim();
-
-      int separatorIndex = input.indexOf("//");
-      if (separatorIndex == -1) {
-        Serial.println("Invalid format. Use 'SSID//password'. Try again.");
-        continue;
-      }
-
-      String ssid = input.substring(0, separatorIndex);
-      String password = input.substring(separatorIndex + 2);
-      ssid.trim(); 
-      password.trim(); 
-
-      connectToWiFi(ssid.c_str(), password.c_str());
-      break; 
-    } else if (choice.equalsIgnoreCase("no")) {
-      Serial.println("Select a WiFi network by entering the corresponding number or SSID followed by the password separated by '//':");
-
-      while (!Serial.available());
-      String input = Serial.readStringUntil('\n');
-      input.trim();
-
-      int separatorIndex = input.indexOf("//");
-      if (separatorIndex == -1) {
-        Serial.println("Invalid format. Use 'number//password' or 'SSID//password'. Try again.");
-        continue;
-      }
-
-      String password = input.substring(separatorIndex + 2);
-      password.trim();
-
-      String ssidInput = input.substring(0, separatorIndex);
-
-      int networkIndex = ssidInput.toInt() - 1;
-      if (networkIndex >= 0 && networkIndex < n) {
-        String ssid = WiFi.SSID(networkIndex);
-        Serial.print("You selected: ");
-        Serial.println(ssid);
-        Serial.print("Connecting to ");
-        Serial.println(ssid);
-        connectToWiFi(ssid.c_str(), password.c_str());
-      } else {
-        Serial.print("Connecting to SSID: ");
-        Serial.println(ssidInput);
-        connectToWiFi(ssidInput.c_str(), password.c_str());
-      }
-
-      if (WiFi.status() == WL_CONNECTED) {
-        saveAP(ssidInput.c_str(), password.c_str());
-        break;
-      } else {
-        Serial.println("Failed to connect. Please try again.");
-      }
-    }
+  if (!autoConnectToWiFi(networks)) {
+    manualConnect();
   }
 }
 
