@@ -37,7 +37,7 @@ Flash it (you need to reboot the board for start using the firmware)
 
 ## TO DO
 
-- [x] Rewrite the ESP32 firmware (currently work for flashing using ESP-TOOLS only with the ESP32-wroom-32 devkit v1 model <-- for other ESP32 models the firmware works flashing it using arduino IDE) I need to rewrite the firmware to make it work with all the ESP32 models using ESP-TOOLS
+- [x] Rewrite the ESP32 firmware now should work with all the ESP32 models using ESP-TOOLS
 
 - [x] improve the handling of how the APs are saved, currently it saves them but rewrites the previous one
 
