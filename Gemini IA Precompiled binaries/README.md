@@ -14,9 +14,7 @@ Place the firmware into firmwareA (0x10000)
 
 Flash it in slow mode or fast mode both works for me (you need to reboot the board for start using the firmware)
 
-Sidenote: Now Gemini_AI.bin, Gemini_AI_bootloader.bin and Gemini_AI_partitions.bin should work with all ESP32 and ESP32 S series (please let my know if doesn't work with S series)
-
-Sidenote 2: merged-flash.bin is under revision I plan to made a 1 file to flash everything at once but I can't figure out why is not working
+Sidenote: Please select the .zip corresponding to your ESP32 model to ensure it is compatible
 
 # Screenshots
 
