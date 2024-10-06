@@ -256,7 +256,7 @@ function startChatting() {
 }
 
 function help() {
-    dialog.message("Help", "This is an app to interact with Google Gemini IA using the esp32");
+    dialog.message("Help", "App to interact with Gemini IA using the esp32");
     mainMenu();
 }
 
