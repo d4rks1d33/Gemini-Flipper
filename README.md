@@ -8,7 +8,7 @@ Important: Now the javascript app works with the new firmware! 🎉🎉
 
 Currently the code takes the api key in plain text stored in:
 
-"/ext/apps_data/gemini_ia/key.txt" 
+"/ext/apps_data/gemini_ia/key.txt" <-- You need to manually create it
 
 (You can get the Gemini Api Key using this link: https://ai.google.dev/gemini-api/docs/api-key You only need a Gmail account)
 
