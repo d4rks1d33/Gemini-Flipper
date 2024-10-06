@@ -61,8 +61,6 @@ The native app is in development.  Currently it just shows the main menu and the
 
 ## Contributors
 
-(I guess this needs to be updated on GitHub, I'll leave this comment here just in case until the list of contributors is properly updated. I want everyone who contributes to this repository to have the recognition they deserve for their time and effort helping with this project.)
-
 <a href="https://github.com/d4rks1d33/Gemini-Flipper/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=d4rks1d33/Gemini-Flipper&max=50&columns=4&anon=1" />
 </a>
