@@ -2,7 +2,7 @@
 
 Currently in development stage, here I'm going to upload the .js code that I currently use so that anyone who wants to join and help improve it can make their PRs and also for those C developers who want to help create the native Flipper app and be accessible by everyone from https://lab.flipper.net/apps
 
-Important: Now the javascript app now works with the new firmware! 🎉🎉 
+Important: Now the javascript app works with the new firmware! 🎉🎉 
 
 ## How it is work
 
