@@ -27,3 +27,5 @@ extern const SceneManagerHandlers gemini_scene_handlers;
 #define ADD_SCENE(prefix, name, id) void prefix##_scene_##name##_on_exit(void* context);
 #include "gemini_scene_config.h"
 #undef ADD_SCENE
+
+void gemini_scene_receive_serial_set_next(void* app, GeminiScene back_scene);
