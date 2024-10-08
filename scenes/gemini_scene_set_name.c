@@ -17,7 +17,7 @@ void gemini_scene_set_name_on_enter(void* context) {
     text_input_set_header_text(app->text_input, "Enter your name");
     text_input_set_minimum_length(app->text_input, 1);
     text_buffer[0] = '\0';
-    text_input_set_result_callback(app->text_input, gemini_scene_set_name_text_input_callback, app, text_buffer, TEXT_BUFFER_SIZE, true);
+    text_input_set_result_callback(app->text_input, gemini_scene_set_name_text_input_callback, app, text_buffer, TEXT_BUFFER_SIZE, true);    
     view_dispatcher_switch_to_view(app->view_dispatcher, GeminiViewTextInput);
 }
 
@@ -29,6 +29,7 @@ bool gemini_scene_set_name_on_event(void* context, SceneManagerEvent event) {
             case GeminiSceneSetNameEventOk:
                 uart_helper_send(app->uart_helper, text_buffer, TEXT_BUFFER_SIZE);
                 // We want BACK to go back to the main menu, not our current scene.
+                gemini_scene_receive_serial_set_next(app, GeminiSceneMainMenu);
                 scene_manager_search_and_switch_to_another_scene(app->scene_manager, GeminiSceneReceiveSerial);
                 consumed = true;
                 break;

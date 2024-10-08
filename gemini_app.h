@@ -2,7 +2,7 @@
 
 typedef enum {
     GeminiViewSubmenu,
-    GeminiViewTextBox,
+    GeminiViewGeminiTextBox,
     GeminiViewTextInput,
     GeminiViewWidget,
 } GeminiView;

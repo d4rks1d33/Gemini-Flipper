@@ -1,11 +1,11 @@
 #pragma once
 
 #include "gemini_app.h"
+#include "views/gemini_text_box.h"
 
 #include <gui/view_dispatcher.h>
 #include <gui/scene_manager.h>
 #include <gui/modules/submenu.h>
-#include <gui/modules/text_box.h>
 #include <gui/modules/text_input.h>
 #include <gui/modules/widget.h>
 
@@ -17,7 +17,7 @@ struct GeminiApp {
     SceneManager* scene_manager;
     ViewDispatcher* view_dispatcher;
     Submenu* submenu;
-    TextBox* text_box;
+    GeminiTextBox* gemini_text_box;
     TextInput* text_input;
     Widget* widget;
     FuriTimer* timer;

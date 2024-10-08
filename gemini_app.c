@@ -17,8 +17,9 @@ static bool gemini_app_back_event_callback(void* context) {
     return scene_manager_handle_back_event(app->scene_manager);
 }
 
-static bool gemini_app_send_api_key(GeminiApp* app) {
+bool gemini_app_send_api_key(GeminiApp* app) {
     UNUSED(app);
+    const char* folder_path = EXT_PATH("apps_data/gemini_ia");
     const char* key_path = EXT_PATH("apps_data/gemini_ia/key.txt");
     bool sent = false;
     
@@ -43,6 +44,8 @@ static bool gemini_app_send_api_key(GeminiApp* app) {
             }
             storage_file_close(file);
         }
+    } else if (!storage_dir_exists(storage, folder_path)) {
+        storage_simply_mkdir(storage, folder_path);
     }
     furi_record_close(RECORD_STORAGE);
 
@@ -61,8 +64,8 @@ static GeminiApp* gemini_app_alloc() {
     app->submenu = submenu_alloc();
     view_dispatcher_add_view(
         app->view_dispatcher, GeminiViewSubmenu, submenu_get_view(app->submenu));
-    app->text_box = text_box_alloc();
-    view_dispatcher_add_view(app->view_dispatcher, GeminiViewTextBox, text_box_get_view(app->text_box));
+    app->gemini_text_box = gemini_text_box_alloc();
+    view_dispatcher_add_view(app->view_dispatcher, GeminiViewGeminiTextBox, gemini_text_box_get_view(app->gemini_text_box));
     app->text_input = text_input_alloc();
     view_dispatcher_add_view(
         app->view_dispatcher, GeminiViewTextInput, text_input_get_view(app->text_input));
@@ -82,12 +85,12 @@ static void gemini_app_free(GeminiApp* app) {
     uart_helper_free(app->uart_helper);
     view_dispatcher_remove_view(app->view_dispatcher, GeminiViewSubmenu);
     view_dispatcher_remove_view(app->view_dispatcher, GeminiViewTextInput);
-    view_dispatcher_remove_view(app->view_dispatcher, GeminiViewTextBox);
+    view_dispatcher_remove_view(app->view_dispatcher, GeminiViewGeminiTextBox);
     view_dispatcher_remove_view(app->view_dispatcher, GeminiViewWidget);
     scene_manager_free(app->scene_manager);
     view_dispatcher_free(app->view_dispatcher);
     submenu_free(app->submenu);
-    text_box_free(app->text_box);
+    gemini_text_box_free(app->gemini_text_box);
     text_input_free(app->text_input);
     widget_free(app->widget);
     free(app);
