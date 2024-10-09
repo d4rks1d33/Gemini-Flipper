@@ -60,7 +60,4 @@ void gemini_scene_receive_serial_on_exit(void* context) {
     furi_timer_stop(app->timer);
     furi_string_free(line);
     furi_string_free(contents);
-
-    // NOTE: The "stop" command doesn't seem to be implemented by the ESP32 firmware?
-    uart_helper_send(app->uart_helper, "stop", 0);
 }
