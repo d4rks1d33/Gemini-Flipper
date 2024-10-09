@@ -233,11 +233,18 @@ bool uart_helper_read(UartHelper* helper, FuriString* text) {
 
 void uart_helper_send(UartHelper* helper, const char* data, size_t length) {
     if (length == 0) {
-        length = strlen(data) + 1;
+        length = strlen(data); // Exclude the null character.
+        char* buf = malloc(length + 2); // Null and delimiter.
+        memcpy(buf, data, length);
+        buf[length++] = '\n'; // Add a newline character.
+        buf[length] = 0; // Null terminate the string.
+        data = buf;        
+        furi_hal_serial_tx(helper->serial_handle, (uint8_t*)data, length);
+        free(buf);
+    } else {
+        // Transmit data via UART TX.
+        furi_hal_serial_tx(helper->serial_handle, (uint8_t*)data, length);
     }
-
-    // Transmit data via UART TX.
-    furi_hal_serial_tx(helper->serial_handle, (uint8_t*)data, length);
 }
 
 void uart_helper_send_string(UartHelper* helper, FuriString* string) {
