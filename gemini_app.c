@@ -31,11 +31,11 @@ bool gemini_app_send_api_key(GeminiApp* app) {
             memset(key, 0, COUNT_OF(key));
             size_t bytes_read = storage_file_read(file, key, COUNT_OF(key));
             if (bytes_read > 0) {
-                size_t bytes_send = bytes_read + 1; // Add one for the null character.
+                size_t bytes_send = bytes_read;
                 for (size_t i = 0; i < bytes_read; i++) {
                     if ((key[i] == '\r') || (key[i] == '\n') || (key[i] == ' ')) {
                         key[i] = '\0';
-                        bytes_send = i;
+                        bytes_send = 0;
                         break;
                     }
                 }
