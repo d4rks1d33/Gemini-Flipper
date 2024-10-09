@@ -29,8 +29,7 @@ function receiveSerialData(menutype) {
             textbox.addText(rx_data);
         }
     }
-    serial.write("stop");
-
+    
     if (menutype === 0) {
         mainMenu();
     }
