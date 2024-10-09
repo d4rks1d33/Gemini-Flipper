@@ -1,7 +1,7 @@
 #include "../gemini_app_i.h"
 
 #define TEXT_BUFFER_SIZE 64
-char text_buffer[TEXT_BUFFER_SIZE];
+static char text_buffer[TEXT_BUFFER_SIZE];
 
 enum {
     GeminiSceneSetNameEventOk,
