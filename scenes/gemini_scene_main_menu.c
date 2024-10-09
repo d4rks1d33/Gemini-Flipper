@@ -104,8 +104,7 @@ bool gemini_scene_main_menu_on_event(void* context, SceneManagerEvent event) {
                 consumed = true;
                 break;
             case GeminiSceneMainMenuEventStartChatting:
-                // TODO: Replace with correct scene
-                scene_manager_next_scene(app->scene_manager, GeminiSceneUnderConstruction);
+                scene_manager_next_scene(app->scene_manager, GeminiSceneStartChatting);
                 consumed = true;
                 break;
             case GeminiSceneMainMenuEventHelp:
