@@ -57,7 +57,7 @@ void gemini_scene_send_known_aps_on_enter(void* context) {
     GeminiApp* app = context;
     widget_reset(app->widget);
     widget_add_string_element(
-        app->widget, 0, 25, AlignLeft, AlignTop, FontPrimary, "Enumerating APs");
+        app->widget, 0, 25, AlignLeft, AlignTop, FontPrimary, "Please wait...");
     view_dispatcher_switch_to_view(app->view_dispatcher, GeminiViewWidget);
 
     // Wait for the scan of APs to happen. (TODO: Implement a better way to wait for the scan to finish)
