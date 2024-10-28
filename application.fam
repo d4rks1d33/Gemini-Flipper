@@ -1,6 +1,6 @@
 App(
     appid="gemini_ia",
-    name="Gemini IA",
+    name="[ESP32] Gemini IA",
     apptype=FlipperAppType.EXTERNAL,
     entry_point="gemini_app",
     requires=["gui"],

@@ -34,8 +34,8 @@ void connectToWiFi(const char* ssid, const char* password) {
 }
 
 void loadAPIKey() {
-  Serial.println("Please send the API key file (api.txt) over Serial:");
-  
+  Serial.println("Waiting for API key (send via Serial)...");
+
   while (!Serial.available());
   apiKey = Serial.readStringUntil('\n');
   apiKey.trim();
@@ -52,19 +52,19 @@ void saveAP(const char* ssid, const char* password) {
 
 bool loadSavedAP(String &ssid, String &password) {
   Serial.println("Loading saved Access Points from SavedAPs.txt...");
-  
+
   while (!Serial.available());
   String apData = Serial.readStringUntil('\n');
-  
+
   int separatorIndex = apData.indexOf("//");
   if (separatorIndex == -1) return false;
 
   ssid = apData.substring(0, separatorIndex);
   password = apData.substring(separatorIndex + 2);
-  
+
   ssid.trim();
   password.trim();
-  
+
   return true;
 }
 
@@ -72,12 +72,12 @@ bool autoConnectToWiFi(const String &networks) {
   Serial.println("Attempting to auto-connect to known networks...");
 
   int n = WiFi.scanNetworks();
-  
+
   int startIndex = 0;
   while (startIndex < networks.length()) {
     int separatorIndex = networks.indexOf(",", startIndex);
     if (separatorIndex == -1) separatorIndex = networks.length();
-    
+
     String pair = networks.substring(startIndex, separatorIndex);
     pair.trim();
 
@@ -135,6 +135,14 @@ void manualConnect() {
   }
 }
 
+void changeName() {
+  Serial.println("Please enter the new name:");
+  while (!Serial.available());
+  userName = Serial.readStringUntil('\n');
+  userName.trim();
+  Serial.println("Name changed successfully to: " + userName);
+}
+
 void setup() {
   Serial.begin(115200);
   delay(10);
@@ -153,8 +161,9 @@ void setup() {
   int n = WiFi.scanNetworks();
   Serial.println("Available WiFi networks:");
   for (int i = 0; i < n; ++i) {
+    Serial.print("[");
     Serial.print(i + 1);
-    Serial.print(": ");
+    Serial.print("] ");
     Serial.print(WiFi.SSID(i));
     Serial.print(" (");
     Serial.print(WiFi.RSSI(i));
@@ -175,7 +184,15 @@ void loop() {
     String userQuery = Serial.readStringUntil('\n');
     userQuery.trim();
 
-    if (userQuery.length() > 0) {
+    if (userQuery.equalsIgnoreCase("newname")) {
+      changeName();
+    }
+    else if (userQuery.equalsIgnoreCase("restart_board")) {
+      Serial.println("Restarting the board...");
+      delay(1000);
+      ESP.restart();
+    }
+    else if (userQuery.length() > 0) {
       if (WiFi.status() == WL_CONNECTED) {
         HTTPClient http;
 
@@ -195,8 +212,8 @@ void loop() {
 
           if (!error) {
             const char* text = doc["candidates"][0]["content"]["parts"][0]["text"];
-            Serial.println(userName + ": \"" + userQuery + "\""); 
-            Serial.println("Gemini: \"" + String(text) + "\"");
+            Serial.println(userName + ": \"" + userQuery + "\"");
+            Serial.println("Gemini response: \"" + String(text) + "\"");
           } else {
             Serial.print("Error parsing JSON: ");
             Serial.println(error.c_str());

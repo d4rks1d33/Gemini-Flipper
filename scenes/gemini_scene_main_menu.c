@@ -3,7 +3,7 @@
 typedef enum {
     GeminiSceneMainMenuIndexSetName,
     GeminiSceneMainMenuIndexConnectNewAP,
-    GeminiSceneMainMenuIndexConnectSavedAP,
+    GeminiSceneMainMenuIndexChangeName,
     GeminiSceneMainMenuIndexStartChatting,
     GeminiSceneMainMenuIndexHelp,
 } GeminiSceneMainMenuIndex;
@@ -11,7 +11,7 @@ typedef enum {
 typedef enum {
     GeminiSceneMainMenuEventSetName,
     GeminiSceneMainMenuEventConnectNewAP,
-    GeminiSceneMainMenuEventConnectSavedAP,
+    GeminiSceneMainMenuEventConnectChangeName,
     GeminiSceneMainMenuEventStartChatting,
     GeminiSceneMainMenuEventHelp,
 } GeminiSceneMainMenuEvent;
@@ -27,9 +27,9 @@ static void gemini_scene_main_menu_callback(void* context, uint32_t index) {
         scene_manager_handle_custom_event(
             app->scene_manager, GeminiSceneMainMenuEventConnectNewAP);
         break;
-    case GeminiSceneMainMenuIndexConnectSavedAP:
+    case GeminiSceneMainMenuIndexChangeName:
         scene_manager_handle_custom_event(
-            app->scene_manager, GeminiSceneMainMenuEventConnectSavedAP);
+            app->scene_manager, GeminiSceneMainMenuEventConnectChangeName);
         break;
     case GeminiSceneMainMenuIndexStartChatting:
         scene_manager_handle_custom_event(
@@ -60,8 +60,8 @@ void gemini_scene_main_menu_on_enter(void* context) {
         app);
     submenu_add_item(
         app->submenu,
-        "Connect to saved AP",
-        GeminiSceneMainMenuIndexConnectSavedAP,
+        "Change your name",
+        GeminiSceneMainMenuIndexChangeName,
         gemini_scene_main_menu_callback,
         app);
     submenu_add_item(
@@ -98,9 +98,8 @@ bool gemini_scene_main_menu_on_event(void* context, SceneManagerEvent event) {
                 scene_manager_next_scene(app->scene_manager, GeminiSceneUnderConstruction);
                 consumed = true;
                 break;
-            case GeminiSceneMainMenuEventConnectSavedAP:
-                // TODO: Replace with correct scene
-                scene_manager_next_scene(app->scene_manager, GeminiSceneUnderConstruction);
+            case GeminiSceneMainMenuEventConnectChangeName:
+                scene_manager_next_scene(app->scene_manager, GeminiSceneChangeName);
                 consumed = true;
                 break;
             case GeminiSceneMainMenuEventStartChatting:
