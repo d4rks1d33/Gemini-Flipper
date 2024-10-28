@@ -26,7 +26,7 @@ Check the folder "Gemini IA Precompiled binaries" there is a tutorial on how to 
 
 ## TO DO
 
-- [] Remove unnecessary files
+- [ ] Remove unnecessary files
 
 - [x] Create a Dev branch to avoid conflicts with the Main branch
 
