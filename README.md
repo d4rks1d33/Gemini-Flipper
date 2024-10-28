@@ -2,7 +2,9 @@
 
 Currently in development stage, here I'm going to upload the .js code that I currently use so that anyone who wants to join and help improve it can make their PRs and also for those C developers who want to help create the native Flipper app and be accessible by everyone from https://lab.flipper.net/apps
 
-Important: Now the javascript app works with the new firmware! 🎉🎉 
+~~Important: Now the javascript app works with the new firmware! 🎉🎉~~
+
+Important: Due to changes in the Flipper Zero firmware regarding the implementation of mJs and the changes it had, the .js application no longer works with the new versions of the firmware, but don't worry the native app in C is close to the end to be released so that everyone can enjoy it
 
 ## How it is work
 
@@ -20,22 +22,13 @@ I added the source code of the new firmware for the esp32 and also the pre-compi
 
 ## How to flash the firmware using ESP-Flasher
 
-Go to "Manual flash"
-
-Place the Bootloader binary into bootloader (0x1000)
-
-Place the partitions binary into Part Table (0x8000)
-
-Place the firmware into firmwareA (0x10000)
-
-Flash it (you need to reboot the board for start using the firmware)
-
-![Captura de pantalla 2024-09-28 213108](https://github.com/user-attachments/assets/c2e8a0a4-3865-452a-831f-d7200ae45084)
-
-![Captura de pantalla 2024-09-28 213123](https://github.com/user-attachments/assets/031063aa-c4bf-4fbe-baa6-745573cc8411)
-
+Check the folder "Gemini IA Precompiled binaries" there is a tutorial on how to do it there
 
 ## TO DO
+
+- [] Remove unnecessary files
+
+- [x] Create a Dev branch to avoid conflicts with the Main branch
 
 - [x] Rewrite javascript app for work with the new firmware
 
@@ -58,6 +51,8 @@ Flash it (you need to reboot the board for start using the firmware)
 ## Native app
 
 The native app is in development.  Currently it just shows the main menu and then each option shows "Under construction".
+
+Changes: Now you can not only set your name and chat, but you can also change the name if you want. We still need to implement the function to connect to a new AP (currently it only connects to those already saved in "/ext/apps_data/gemini_ia/SavedAPs.txt"). Side note: I will make a small tutorial on how to use the app once everything is stable and ready for everyone to use.
 
 ## Contributors
 
