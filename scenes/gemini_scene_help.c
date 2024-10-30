@@ -18,7 +18,6 @@ void gemini_scene_help_widget_callback(GuiButtonType result, InputType type, voi
 void gemini_scene_help_on_enter(void* context) {
     GeminiApp* app = context;
     
-    // Asegúrate de limpiar el widget
     widget_reset(app->widget);
 
     widget_add_text_box_element(
@@ -59,6 +58,5 @@ bool gemini_scene_help_on_event(void* context, SceneManagerEvent event) {
 void gemini_scene_help_on_exit(void* context) {
     GeminiApp* app = context;
 
-    // Clear views
     widget_reset(app->widget);
 }

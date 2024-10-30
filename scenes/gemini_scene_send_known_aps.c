@@ -47,7 +47,7 @@ static bool gemini_app_send_access_points(GeminiApp* app) {
         uart_helper_send(app->uart_helper, furi_string_get_cstr(access_points), 0);
         sent = true;
     } else {
-        uart_helper_send(app->uart_helper, "", 0); // Envía cadena vacía si no hay APs
+        uart_helper_send(app->uart_helper, "", 0);
     }
 
     furi_string_free(access_points);
@@ -71,7 +71,6 @@ void gemini_scene_send_known_aps_on_enter(void* context) {
             app->widget, 0, 25, AlignLeft, AlignTop, FontPrimary, "SENT APs");
         view_dispatcher_send_custom_event(app->view_dispatcher, 42);
     } else {
-        // Enviar el resultado de la terminal UART en caso de "NO APs"
         widget_add_string_element(
             app->widget, 0, 25, AlignLeft, AlignTop, FontPrimary, "Required manual connect");
     }
@@ -82,14 +81,13 @@ bool gemini_scene_send_known_aps_on_event(void* context, SceneManagerEvent event
 
     if (event.type == SceneManagerEventTypeCustom) {
         if (event.event == 42) {
-            // No interferir con el evento principal, solo retornar a la escena principal
             gemini_scene_receive_serial_set_next(app, GeminiSceneMainMenu);
             scene_manager_search_and_switch_to_another_scene(app->scene_manager, GeminiSceneReceiveSerial);
             return true;
         }
     }
 
-    return false; // Evento no manejado
+    return false;
 }
 
 void gemini_scene_send_known_aps_on_exit(void* context) {

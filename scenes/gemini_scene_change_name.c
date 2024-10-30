@@ -2,7 +2,7 @@
 
 #define TEXT_BUFFER_SIZE 64
 static char text_buffer[TEXT_BUFFER_SIZE];
-static bool name_command_sent = false; // Nueva variable para verificar si el comando ya fue enviado
+static bool name_command_sent = false;
 
 enum {
     GeminiSceneChangeNameEventOk,
@@ -17,10 +17,9 @@ bool gemini_app_send_new_name_command(GeminiApp* app) {
     const char* command = "newname";
     bool sent = false;
 
-    // Solo envía el comando si aún no ha sido enviado
     if(!name_command_sent) {
         uart_helper_send(app->uart_helper, command, strlen(command));
-        name_command_sent = true; // Marcar como enviado
+        name_command_sent = true;
         sent = true;
     }
 
@@ -30,7 +29,6 @@ bool gemini_app_send_new_name_command(GeminiApp* app) {
 void gemini_scene_change_name_on_enter(void* context) {
     GeminiApp* app = context;
 
-    // Enviar el comando "newname" solo una vez
     gemini_app_send_new_name_command(app);
 
     text_input_set_header_text(app->text_input, "Enter your name");
@@ -47,7 +45,7 @@ bool gemini_scene_change_name_on_event(void* context, SceneManagerEvent event) {
         switch(event.event) {
             case GeminiSceneChangeNameEventOk:
                 uart_helper_send(app->uart_helper, text_buffer, strlen(text_buffer));
-                gemini_scene_receive_serial_set_next(app, GeminiSceneMainMenu); // Cambiar a escena principal
+                gemini_scene_receive_serial_set_next(app, GeminiSceneMainMenu);
                 scene_manager_search_and_switch_to_another_scene(app->scene_manager, GeminiSceneReceiveSerial);
                 consumed = true;
                 break;
@@ -58,7 +56,6 @@ bool gemini_scene_change_name_on_event(void* context, SceneManagerEvent event) {
 }
 
 void gemini_scene_change_name_on_exit(void* context) {
-    // Reiniciar name_command_sent para que al reingresar desde el menú se vuelva a enviar el comando
     name_command_sent = false;
     UNUSED(context);
 }

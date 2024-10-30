@@ -3,8 +3,8 @@
 
 #define TEXT_BUFFER_SIZE 128
 static char text_buffer[TEXT_BUFFER_SIZE];
-static bool requesting_password = false; // Variable para alternar entre SSID y contraseña
-static char ssid_buffer[TEXT_BUFFER_SIZE]; // Buffer temporal para el SSID
+static bool requesting_password = false;
+static char ssid_buffer[TEXT_BUFFER_SIZE];
 
 enum {
     GeminiSceneStartConnectNewAPOk,
@@ -36,33 +36,25 @@ bool gemini_scene_connect_new_ap_on_event(void* context, SceneManagerEvent event
         switch(event.event) {
             case GeminiSceneStartConnectNewAPOk:
                 if (!requesting_password) {
-                    // Enviar el SSID por UART y mostrar salida
                     uart_helper_send(app->uart_helper, text_buffer, 0);
 
-                    // Guardar el SSID temporalmente para añadir la contraseña después
                     strncpy(ssid_buffer, text_buffer, TEXT_BUFFER_SIZE);
 
-                    // Cambiar a solicitar la contraseña
                     requesting_password = true;
-                    gemini_scene_connect_new_ap_on_enter(app); // Volver a pedir contraseña
+                    gemini_scene_connect_new_ap_on_enter(app);
                 } else {
-                    // Enviar la contraseña por UART y mostrar salida
                     uart_helper_send(app->uart_helper, text_buffer, 0);
 
-                    // Guardar en el archivo
                     const char* ap_path = EXT_PATH("apps_data/gemini_ia/SavedAPs.txt");
                     Storage* storage = furi_record_open(RECORD_STORAGE);
                     File* file = storage_file_alloc(storage);
 
-                    // Verificar si el archivo ya existe
                     bool append_newline = storage_file_exists(storage, ap_path);
                     
-                    // Abrir el archivo en modo escritura y agregar al final si existe
                     if (storage_file_open(file, ap_path, FSAM_WRITE, FSOM_OPEN_ALWAYS | FSOM_OPEN_APPEND)) {
                         if (append_newline) {
-                            storage_file_write(file, "\n", 1); // Añadir una nueva línea
+                            storage_file_write(file, "\n", 1);
                         }
-                        // Escribir SSID y contraseña en el archivo
                         storage_file_write(file, ssid_buffer, strlen(ssid_buffer));
                         storage_file_write(file, "//", 2);
                         storage_file_write(file, text_buffer, strlen(text_buffer));
@@ -72,7 +64,6 @@ bool gemini_scene_connect_new_ap_on_event(void* context, SceneManagerEvent event
                     storage_file_free(file);
                     furi_record_close(RECORD_STORAGE);
 
-                    // Cambiar a la siguiente escena
                     gemini_scene_receive_serial_set_next(app, GeminiSceneConnectNewAP);
                     scene_manager_search_and_switch_to_another_scene(app->scene_manager, GeminiSceneReceiveSerial);
                 }
