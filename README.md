@@ -24,7 +24,7 @@ I added the source code for the new firmware for the esp32 and also the precompi
 
 Check the folder "Gemini IA Precompiled binaries" there is a tutorial on how to do it there
 
-## TODO
+## TO DO
 
 - [x] Remove unnecessary files
 
