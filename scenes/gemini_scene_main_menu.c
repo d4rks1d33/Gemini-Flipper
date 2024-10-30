@@ -95,7 +95,7 @@ bool gemini_scene_main_menu_on_event(void* context, SceneManagerEvent event) {
                 break;
             case GeminiSceneMainMenuEventConnectNewAP:
                 // TODO: Replace with correct scene
-                scene_manager_next_scene(app->scene_manager, GeminiSceneUnderConstruction);
+                scene_manager_next_scene(app->scene_manager, GeminiSceneConnectNewAP);
                 consumed = true;
                 break;
             case GeminiSceneMainMenuEventConnectChangeName:
@@ -108,7 +108,7 @@ bool gemini_scene_main_menu_on_event(void* context, SceneManagerEvent event) {
                 break;
             case GeminiSceneMainMenuEventHelp:
                 // TODO: Replace with correct scene
-                scene_manager_next_scene(app->scene_manager, GeminiSceneUnderConstruction);
+                scene_manager_next_scene(app->scene_manager, GeminiSceneHelp);
                 consumed = true;
                 break;
         }

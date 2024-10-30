@@ -4,14 +4,14 @@
 static bool gemini_app_send_access_points(GeminiApp* app) {
     const char* ap_path = EXT_PATH("apps_data/gemini_ia/SavedAPs.txt");
     bool sent = false;
-    
+
     FuriString* access_points = furi_string_alloc();
 
     Storage* storage = furi_record_open(RECORD_STORAGE);
     if (storage_file_exists(storage, ap_path)) {
         char ap[128];
         File* file = storage_file_alloc(storage);
-        if(storage_file_open(file, ap_path, FSAM_READ, FSOM_OPEN_EXISTING)) {
+        if (storage_file_open(file, ap_path, FSAM_READ, FSOM_OPEN_EXISTING)) {
             size_t seek_offset = 0;
             while (true) {
                 memset(ap, 0, COUNT_OF(ap));
@@ -46,6 +46,8 @@ static bool gemini_app_send_access_points(GeminiApp* app) {
         furi_string_cat(access_points, "\n");
         uart_helper_send(app->uart_helper, furi_string_get_cstr(access_points), 0);
         sent = true;
+    } else {
+        uart_helper_send(app->uart_helper, "", 0); // Envía cadena vacía si no hay APs
     }
 
     furi_string_free(access_points);
@@ -69,8 +71,9 @@ void gemini_scene_send_known_aps_on_enter(void* context) {
             app->widget, 0, 25, AlignLeft, AlignTop, FontPrimary, "SENT APs");
         view_dispatcher_send_custom_event(app->view_dispatcher, 42);
     } else {
+        // Enviar el resultado de la terminal UART en caso de "NO APs"
         widget_add_string_element(
-            app->widget, 0, 25, AlignLeft, AlignTop, FontPrimary, "NO APs");
+            app->widget, 0, 25, AlignLeft, AlignTop, FontPrimary, "Required manual connect");
     }
 }
 
@@ -79,14 +82,14 @@ bool gemini_scene_send_known_aps_on_event(void* context, SceneManagerEvent event
 
     if (event.type == SceneManagerEventTypeCustom) {
         if (event.event == 42) {
-            // We want BACK to go back to the main menu, not our current scene.
+            // No interferir con el evento principal, solo retornar a la escena principal
             gemini_scene_receive_serial_set_next(app, GeminiSceneMainMenu);
             scene_manager_search_and_switch_to_another_scene(app->scene_manager, GeminiSceneReceiveSerial);
             return true;
         }
     }
 
-    return false; // event not handled.
+    return false; // Evento no manejado
 }
 
 void gemini_scene_send_known_aps_on_exit(void* context) {
