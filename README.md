@@ -2,7 +2,7 @@
 
 Currently in development, anyone who wants to join and help improve it can make their PR and also for those C developers who want to help create the native Flipper app and make it accessible to everyone from https://lab.flipper.net/apps is welcome 
 
-You can find the first version at https://lab.flipper.net/apps (please if you find any bugs do not hesitate to raise an issue)
+You can find the first version in the release section
 
 Important: Due to changes in the Flipper Zero firmware regarding the implementation of mJs and the changes it had, the .js application no longer works with the new firmware versions, but do not worry the native C application is now ready for everyone to enjoy
 
