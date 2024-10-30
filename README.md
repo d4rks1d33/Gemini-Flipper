@@ -1,6 +1,6 @@
 # Gemini-Flipper
 
-Currently in development, anyone who wants to join and help improve it can make their PR and also for those C developers who want to help create the native Flipper app and make it accessible to everyone is welcome from https://lab.flipper.net/apps
+Currently in development, anyone who wants to join and help improve it can make their PR and also for those C developers who want to help create the native Flipper app and make it accessible to everyone from https://lab.flipper.net/apps is welcome 
 
 You can find the first version at https://lab.flipper.net/apps (please if you find any bugs do not hesitate to raise an issue)
 
