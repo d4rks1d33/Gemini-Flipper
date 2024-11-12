@@ -54,6 +54,4 @@ Changes: The native app is now 100% working, the only problem is that I still ca
 
 ## Contributors
 
-<a href="https://github.com/d4rks1d33/Gemini-Flipper/graphs/contributors">
-<img src="https://contrib.rocks/image?repo=d4rks1d33/Gemini-Flipper&max=50&columns=4&anon=1" />
-</a>
+https://github.com/jamisonderek
