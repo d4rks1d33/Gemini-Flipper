@@ -44,12 +44,6 @@ Check the folder "Gemini IA Precompiled binaries" there is a tutorial on how to 
 
 - [x] upload firmware binary for esp32 (nothing to do here just upload binary)
 
-## Screenshots
-
-![image](https://github.com/user-attachments/assets/3878b4a2-223d-4d23-b395-2d25cf710fed)
-
-![image](https://github.com/user-attachments/assets/777e2d55-f9fd-4c63-bb47-450b020b80e0)
-
 ## Native App
 
 The native app is under development. Currently it just shows the main menu and then every option shows "Under Construction".
