@@ -1,12 +1,12 @@
 App(
     appid="gemini_ia",
     name="[ESP32] Gemini IA",
+    fap_version="1.1",
     apptype=FlipperAppType.EXTERNAL,
     entry_point="gemini_app",
     requires=["gui"],
     stack_size=2 * 1024,
     fap_icon="gemini.png",
     fap_category="GPIO",
-    fap_file_assets="Gemini IA Precompiled binaries",
     fap_description="This is an app to interact with Google Gemini IA using the ESP32.",
 )

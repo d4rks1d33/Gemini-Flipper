@@ -15,7 +15,6 @@ static void gemini_scene_start_chatting_text_input_callback(void* context) {
 void gemini_scene_start_chatting_on_enter(void* context) {
     GeminiApp* app = context;
     text_input_set_header_text(app->text_input, "Enter message");
-    text_input_set_minimum_length(app->text_input, 0);
     text_buffer[0] = '\0';
     text_input_set_result_callback(app->text_input, gemini_scene_start_chatting_text_input_callback, app, text_buffer, TEXT_BUFFER_SIZE, true);    
     view_dispatcher_switch_to_view(app->view_dispatcher, GeminiViewTextInput);
