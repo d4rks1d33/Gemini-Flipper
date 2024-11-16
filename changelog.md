@@ -1,3 +1,11 @@
+# V1.1
+
+  - Fix build issues with the SDK version 0.105.0-rc f7
+
+  - Updated application.fam to add app version and make installation faster removing the precompiled binaries from the .fap
+
+  - Updated README.md
+
 # V1.0
 
 
