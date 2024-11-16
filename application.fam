@@ -1,7 +1,7 @@
 App(
     appid="gemini_ia",
     name="[ESP32] Gemini IA",
-    fap_author="d4rks1d33 & jamisonderek"
+    fap_author="d4rks1d33 & jamisonderek",
     fap_version="1.1",
     apptype=FlipperAppType.EXTERNAL,
     entry_point="gemini_app",
